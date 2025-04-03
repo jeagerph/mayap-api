@@ -1,0 +1,154 @@
+// .ap-identification-front {
+
+//     .ap-content {
+//         // margin-top: 10px;
+
+//         .ap-content-table {
+//             width: 100%;
+//             border-spacing: 0px;
+    
+//             td {
+//                 vertical-align: top;
+//                 padding: 5px 5px;
+//             }
+//         }
+
+//         .ap-content-photo {
+//             margin-top: 5px;
+//             text-align: center;
+            
+//             img {
+//                 width: 90px;
+//                 height: 90px;
+//                 border: .50px solid #999999;
+//                 border-radius: 5px;
+//                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+//             }
+//         }
+
+//         .ap-content-signature {
+//             text-align: center;
+
+//             .ap-line {
+//                 margin-top: 30px;
+//                 width: 100%;
+//                 border-top: 1px solid black;
+//             }
+
+//             small {
+//                 font-family: 'BulldogBold';
+//                 font-size: 10px;
+//             }
+//         }
+
+//         .ap-content-details 
+//         {
+//             padding-left: 5px;
+//             padding-right: 5px;
+//             margin-top: 5px;
+
+//             .ap-watermark {
+//                 position: relative;
+//                 width: 100%;
+        
+//                 img {
+//                     position: absolute;
+//                     opacity: 0.25; /* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
+//                     filter:alpha(opacity=25); /* for <= IE 8 */
+//                     width: 175px;
+//                     height: 175px;
+//                     top: -15px;
+//                     left: 40px;
+//                     right: 0;
+//                     z-index: 1;
+//                 }
+//             }
+
+//             .ap-name {
+//                 text-align: center;
+
+
+//                 small {
+//                     font-family: 'ArialItalic';
+//                     font-size: 8px;
+//                     font-style: italic;
+//                 }
+    
+//                 p {
+//                     font-family: 'BulldogBold';
+//                     margin: 0;
+//                     font-size: 24px;
+//                     font-weight: bold;
+//                 }
+//             }
+    
+//             .ap-other {
+//                 margin-top: 5px;
+    
+//                 table {
+//                     width: 100%;
+//                     border-spacing: 0px;
+            
+//                     td {
+//                         vertical-align: top;
+//                         padding: 0;
+//                     }
+//                 }
+    
+//                 .ap-details {
+//                     margin-top: 10px;
+//                     text-align: center;
+
+//                     small {
+//                         font-family: 'ArialItalic';
+//                         font-size: 8px;
+//                         font-style: italic;
+//                     }
+    
+//                     p {
+//                         font-family: 'BulldogBold';
+//                         margin: 0;
+//                         font-size: 14px;
+//                         font-weight: bold;
+//                         margin-bottom: -5px;
+//                     }
+//                 }
+//             }
+//         }
+
+        
+//     }
+
+// }
+
+// .ap-identification-back {
+
+   
+//     width: 100%; /* Make sure it takes full width */
+//     height: 100%; /* Ensure it takes full height */
+//     min-height: 400px; /* Prevent collapsing */
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     .ap-content {
+//         width: 100%; 
+
+//        .ap-back-id{
+//         height: 100%;
+//        }
+       
+//     }
+      
+
+// }
+
+// table {
+//     width: 100%;
+//     table-layout: fixed; /* Ensures full width */
+// }
+
+// td {
+//     width: 100%;
+//     padding: 0;
+//     margin: 0;
+// }

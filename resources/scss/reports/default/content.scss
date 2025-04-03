@@ -1,0 +1,212 @@
+.ap-content {
+    ol > li {
+        font-size: 11px !important;
+    }
+
+    h4 {
+        margin-bottom: 0px !important;
+    }
+
+    .ap-content-details {
+
+        margin-top: 20px;
+
+        .ap-content-table{
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+        
+        .ap-content-table tr {
+            page-break-inside: avoid;
+        }
+
+        .ap-content-table td{
+            padding: 1px 1px;
+            vertical-align: top;
+            // color: color(default);
+            // font-weight: lighter;
+        }
+
+        .ap-text-first {
+            font-weight: bold;
+            margin-top: 5px !important;
+            margin-bottom: 0px;
+        }
+
+        .ap-text {
+            font-weight: bold;
+            margin: 0px;
+        }
+    }
+
+    .ap-items-details {
+        
+        .ap-items-table{
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        .ap-items-table th{
+            padding: 6px 6px;
+            text-align: center;
+            vertical-align: bottom;
+
+            font-weight: bold;
+
+            font-size: 9px;
+        }
+
+        .ap-items-table td{
+            padding-top: 4px;
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-bottom: 4px;
+            vertical-align: top;
+            // color: color(default);
+            // font-weight: lighter;
+
+            text-align: center;
+        }
+
+        .ap-row-divider {
+            border-top: 0.235px solid black;
+        }
+
+        .ap-row-background {
+            background-color: #f1f1f1;
+        }
+
+        .ap-label {
+            font-weight: bold;
+            font-size: 9px;
+        }
+
+        .ap-text {
+            font-weight: bold;
+            margin: 0px;
+            font-size: 11px;
+        }
+
+        .ap-sub-text {
+            margin: 0px;
+            font-size: 10px;
+        }
+
+        .ap-sub-text-italic {
+            margin: 0px;
+            font-size: 10px;
+            font-style: italic;
+        }
+
+        .ap-sub-sub-text {
+            margin: 0px;
+            font-size: 9px;
+        }
+
+        .ap-text-title {
+            font-weight: bold;
+            margin: 0px;
+            font-size: 14px;
+        }
+
+        .ap-total-table{
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        .ap-total-table th{
+            padding-top: 4px;
+            padding-left: 2px;
+            padding-right: 2px;
+            padding-bottom: 4px;
+            text-align: left;
+            vertical-align: bottom;
+
+            font-weight: bold;
+        }
+
+        .ap-total-table td{
+            padding-top: 4px;
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-bottom: 4px;
+            vertical-align: top;
+            // color: color(default);
+            // font-weight: lighter;
+        }
+
+        .ap-total-label {
+            margin: 0px;
+            // font-weight: bold;
+            font-size: 10px;
+        }
+
+        .ap-total-amount {
+            margin: 0px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .ap-total-grand-label {
+            margin: 0px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .ap-total-grand-amount {
+            margin: 0px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    }
+
+    .ap-signature-details {
+        
+        margin-top: 20px;
+        
+        img {
+            width: 200px;
+            
+        }
+
+        .ap-signature-table{
+            margin-top: 20px;
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        .ap-signature-table th{
+            padding: 6px 6px;
+            text-align: left;
+            vertical-align: bottom;
+
+            font-weight: bold;
+        }
+
+        .ap-signature-table td{
+            padding-top: 4px;
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-bottom: 4px;
+            vertical-align: top;
+            // color: color(default);
+            // font-weight: lighter;
+        }
+    }
+
+    .ap-section-details {
+        margin-top: -10px;
+        
+        .ap-section-title {
+            font-weight: bold;
+            margin: 0px;
+            font-size: 14px;
+        }
+    }
+
+
+}

@@ -1,0 +1,60 @@
+.ap-header {
+
+    .ap-header-table {
+        width: 100%;
+        margin: 0 auto;
+
+        .ap-header-table td{
+            vertical-align: middle;
+        }
+        
+        .ap-header-table-text{
+            text-align: center;
+        }
+        
+        .ap-header-logo {
+            text-align: center;
+            // border: 1px solid black;
+        }
+        
+        .ap-header-republic{
+            font-size: 20px;
+            line-height: 6px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+        
+        .ap-header-city{
+            font-size: 20px;
+            line-height: 4px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        
+        .ap-header-barangay {
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 4px;
+            letter-spacing: 2px;
+        }
+
+        .ap-header-office{
+            font-size: 26px;
+            line-height: 6px;
+            letter-spacing: 2px;
+            font-weight: 800;
+            margin-top: 40px;
+        }
+    }
+
+    .ap-header-border {
+        text-align: center;
+
+        img {
+            width: 900px;
+            height: 40px;
+        }
+    }
+}
+

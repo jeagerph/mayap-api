@@ -1,0 +1,106 @@
+@font-face {
+  font-family: "ArialRegular";
+  src: url(/fonts/Arial-Regular.ttf?361060c71940cc7b86461fcdc511f9ad);
+}
+
+@font-face {
+  font-family: "ArialItalic";
+  src: url(/fonts/Arial-Italic.ttf?02bce9f1940e7fe092818f37d244279f);
+}
+
+@font-face {
+  font-family: "ArialBold";
+  src: url(/fonts/Arial-Bold.ttf?cace6dc6ba96612734e1d1f03da1de0a);
+}
+
+@font-face {
+  font-family: "BulldogBold";
+  src: url(/fonts/Bulldog-Bold.ttf?c7e6eb58de5146aa3a83585a43a1fb58);
+}
+
+.ap-paper {
+  font-family: serif;
+  position: relative;
+  box-sizing: border-box;
+  padding: 89.41px 56.03px;
+}
+
+.ap-paper-preview {
+  width: 8.5in;
+  margin: 10px auto;
+  border: 1px solid #E5E5E5;
+}
+
+.ap-paper-footer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.ap-new-paper {
+  page-break-before: always;
+}
+
+.ap-identification {
+  width: 100%;
+  height: 400px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ap-identification .ap-header {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.ap-identification .ap-header .ap-header-table {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.ap-identification .ap-header .ap-header-table .ap-header-table td {
+  vertical-align: bottom;
+}
+
+.ap-identification .ap-header .ap-header-table .ap-header-logo {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0px !important;
+  margin-right: 5px;
+}
+
+.ap-identification .ap-header .ap-header-table .ap-header-name {
+  font-family: "BulldogBold";
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 4px;
+  text-align: right;
+  margin: 0px;
+}
+
+.ap-identification .ap-header .ap-header-table .ap-header-title {
+  font-family: "BulldogBold";
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 4px;
+  text-align: right;
+  margin-top: 14px;
+  margin-bottom: 0px;
+}
+
+.ap-identification .ap-header .ap-header-title {
+  width: 100%;
+  height: 20px;
+  padding-top: 5px;
+}
+
+.ap-identification .ap-header .ap-header-title p {
+  font-family: "BulldogBold";
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+

@@ -1,0 +1,121 @@
+.ap-sidebar-officials {
+    border: 1px solid black;
+    padding: 5px 5px;
+    text-align: center;
+    // min-height: 1000px;
+
+    .ap-sidebar-title {
+        margin: 0%;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .ap-sidebar-subtitle {
+        font-weight: bold;
+        margin: 0%;
+        font-size: 14px;
+    }
+
+    .ap-sidebar-list {
+        min-height: 800px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        -webkit-display: -webkit-flex; /* wkhtmltopdf uses this one */
+        -webkit-flex-direction: column; /* wkhtmltopdf uses this one */
+        -webkit-justify-content: space-between;
+
+        .ap-list-image img {
+            width: 40%;
+            margin-top: 15px;
+        }
+
+        .ap-list-image-large img {
+            width: 50%;
+            margin-top: 15px;
+        }
+
+        .ap-list-item {
+            margin-top: 22px;
+            letter-spacing: -.40px;
+
+            .ap-list-item-title {
+                font-weight: bolder;
+                font-size: 16px;
+                margin-bottom: -5px;
+            }
+
+            .item-first {
+                font-size: 18px;
+                margin-top: 0px;
+            }
+
+            .ap-list-item-subtitle {
+                font-weight: 600;
+                font-size: 12px;
+            }
+
+            .ap-list-item-label {
+                font-size: 11px;
+                margin: 0%;
+                line-height: 10px;
+            }
+        }
+    }
+}
+
+.ap-sidebar-document {
+
+    .ap-document-table {
+        width: 100%;
+        border-spacing: 0px;
+        margin-top: 5px;
+
+        td {
+            vertical-align: middle;
+            padding: 0%;
+        }
+    }
+
+    .ap-mtop-20 {
+        margin-top: 20px;
+    }
+
+    .ap-mtop-15 {
+        margin-top: 15px;
+    }
+
+    .ap-mtop-10 {
+        margin-top: 10px;
+    }
+
+    .ap-mtop-5 {
+        margin-top: 5px;
+    }
+
+    .ap-label {
+        font-size: 10px;
+    }
+
+    .ap-text {
+        text-align: right;
+        
+        small {
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+    }
+    
+    .ap-seal {
+        text-align: center;
+        margin-top: 20px;
+
+        small {
+            font-weight: bold;
+            font-style: italic;
+        }
+    }
+}

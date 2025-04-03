@@ -1,0 +1,92 @@
+// Name:            Paper
+// Description:     Components to create paper size
+//
+// Component:       `ap-paper`
+//
+// Sub-objects:     `ap-paper-header`
+//                  `ap-paper-body`
+//                  `ap-paper-footer`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+$paper-width:                               8.5in !default;
+$paper-margin-vertical:                     1px !default;
+$paper-margin-horizontal:                   1px !default;
+
+/* ==================================================
+    Component: Paper
+   ================================================== */
+
+.ap-paper{
+    font-family: serif;
+    position: relative;
+    box-sizing: border-box;
+    padding: $paper-margin-vertical $paper-margin-horizontal;
+}
+
+.ap-paper-preview{
+    width: $paper-width;
+    margin: 10px auto;
+    border: 1px solid #E5E5E5;
+}
+
+.ap-paper-footer{
+    margin-top: 40px;
+    text-align: center;
+}
+
+.ap-new-paper{
+    page-break-before: always;
+}
+
+.ap-document-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    /* 2 */
+    width: 100%;
+    margin-top: 20px;
+
+    td {
+        vertical-align: top;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+.ap-mtop-50 {
+    margin-top: 50px;
+}
+.ap-mtop-45 {
+    margin-top: 45px;
+}
+.ap-mtop-40 {
+    margin-top: 40px;
+}
+.ap-mtop-35 {
+    margin-top: 35px;
+}
+.ap-mtop-30 {
+    margin-top: 30px;
+}
+.ap-mtop-25 {
+    margin-top: 25px;
+}
+
+.ap-mtop-20 {
+    margin-top: 20px;
+}
+
+.ap-mtop-15 {
+    margin-top: 15px;
+}
+
+.ap-mtop-10 {
+    margin-top: 10px;
+}
+
+.ap-mtop-5 {
+    margin-top: 5px;
+}

@@ -1,0 +1,641 @@
+@font-face {
+  font-family: "ArialRegular";
+  src: url(/fonts/Arial-Regular.ttf?361060c71940cc7b86461fcdc511f9ad);
+}
+
+@font-face {
+  font-family: "ArialItalic";
+  src: url(/fonts/Arial-Italic.ttf?02bce9f1940e7fe092818f37d244279f);
+}
+
+@font-face {
+  font-family: "ArialBold";
+  src: url(/fonts/Arial-Bold.ttf?cace6dc6ba96612734e1d1f03da1de0a);
+}
+
+@font-face {
+  font-family: "BulldogBold";
+  src: url(/fonts/Bulldog-Bold.ttf?c7e6eb58de5146aa3a83585a43a1fb58);
+}
+
+/* ==================================================
+    Component: Paper
+   ================================================== */
+
+.ap-paper {
+  font-family: serif;
+  position: relative;
+  box-sizing: border-box;
+  padding: 1px 1px;
+}
+
+.ap-paper-preview {
+  width: 8.5in;
+  margin: 10px auto;
+  border: 1px solid #E5E5E5;
+}
+
+.ap-paper-footer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.ap-new-paper {
+  page-break-before: always;
+}
+
+.ap-document-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  /* 2 */
+  width: 100%;
+  margin-top: 20px;
+}
+
+.ap-document-table td {
+  vertical-align: top;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ap-mtop-50 {
+  margin-top: 50px;
+}
+
+.ap-mtop-45 {
+  margin-top: 45px;
+}
+
+.ap-mtop-40 {
+  margin-top: 40px;
+}
+
+.ap-mtop-35 {
+  margin-top: 35px;
+}
+
+.ap-mtop-30 {
+  margin-top: 30px;
+}
+
+.ap-mtop-25 {
+  margin-top: 25px;
+}
+
+.ap-mtop-20 {
+  margin-top: 20px;
+}
+
+.ap-mtop-15 {
+  margin-top: 15px;
+}
+
+.ap-mtop-10 {
+  margin-top: 10px;
+}
+
+.ap-mtop-5 {
+  margin-top: 5px;
+}
+
+.ap-header .ap-header-table {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.ap-header .ap-header-table .ap-header-table td {
+  vertical-align: middle;
+}
+
+.ap-header .ap-header-table .ap-header-table-text {
+  text-align: center;
+}
+
+.ap-header .ap-header-table .ap-header-logo {
+  text-align: center;
+}
+
+.ap-header .ap-header-table .ap-header-republic {
+  font-size: 20px;
+  line-height: 6px;
+  letter-spacing: 2px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.ap-header .ap-header-table .ap-header-city {
+  font-size: 20px;
+  line-height: 4px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.ap-header .ap-header-table .ap-header-barangay {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 4px;
+  letter-spacing: 2px;
+}
+
+.ap-header .ap-header-table .ap-header-office {
+  font-size: 26px;
+  line-height: 6px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  margin-top: 40px;
+}
+
+.ap-header .ap-header-border {
+  text-align: center;
+}
+
+.ap-header .ap-header-border img {
+  width: 900px;
+  height: 40px;
+}
+
+.ap-sidebar-officials {
+  border: 1px solid black;
+  padding: 5px 5px;
+  text-align: center;
+}
+
+.ap-sidebar-officials .ap-sidebar-title {
+  margin: 0%;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.ap-sidebar-officials .ap-sidebar-subtitle {
+  font-weight: bold;
+  margin: 0%;
+  font-size: 14px;
+}
+
+.ap-sidebar-officials .ap-sidebar-list {
+  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  -webkit-display: -webkit-flex;
+  /* wkhtmltopdf uses this one */
+  /* wkhtmltopdf uses this one */
+  -webkit-justify-content: space-between;
+}
+
+.ap-sidebar-officials .ap-sidebar-list .ap-list-image img {
+  width: 40%;
+  margin-top: 15px;
+}
+
+.ap-sidebar-officials .ap-sidebar-list .ap-list-image-large img {
+  width: 50%;
+  margin-top: 15px;
+}
+
+.ap-sidebar-officials .ap-sidebar-list .ap-list-item {
+  margin-top: 22px;
+  letter-spacing: -0.4px;
+}
+
+.ap-sidebar-officials .ap-sidebar-list .ap-list-item .ap-list-item-title {
+  font-weight: bolder;
+  font-size: 16px;
+  margin-bottom: -5px;
+}
+
+.ap-sidebar-officials .ap-sidebar-list .ap-list-item .item-first {
+  font-size: 18px;
+  margin-top: 0px;
+}
+
+.ap-sidebar-officials .ap-sidebar-list .ap-list-item .ap-list-item-subtitle {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.ap-sidebar-officials .ap-sidebar-list .ap-list-item .ap-list-item-label {
+  font-size: 11px;
+  margin: 0%;
+  line-height: 10px;
+}
+
+.ap-sidebar-document .ap-document-table {
+  width: 100%;
+  border-spacing: 0px;
+  margin-top: 5px;
+}
+
+.ap-sidebar-document .ap-document-table td {
+  vertical-align: middle;
+  padding: 0%;
+}
+
+.ap-sidebar-document .ap-mtop-20 {
+  margin-top: 20px;
+}
+
+.ap-sidebar-document .ap-mtop-15 {
+  margin-top: 15px;
+}
+
+.ap-sidebar-document .ap-mtop-10 {
+  margin-top: 10px;
+}
+
+.ap-sidebar-document .ap-mtop-5 {
+  margin-top: 5px;
+}
+
+.ap-sidebar-document .ap-label {
+  font-size: 10px;
+}
+
+.ap-sidebar-document .ap-text {
+  text-align: right;
+}
+
+.ap-sidebar-document .ap-text small {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.ap-sidebar-document .ap-seal {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.ap-sidebar-document .ap-seal small {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.ap-content-content {
+  padding-top: 0;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.ap-content-content .ap-content-watermark {
+  position: relative;
+  width: 100%;
+}
+
+.ap-content-content .ap-content-watermark img {
+  position: absolute;
+  opacity: 0.25;
+  /* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
+  filter: alpha(opacity=25);
+  /* for <= IE 8 */
+  width: 675px;
+  height: 675px;
+  top: 125px;
+  left: 200px;
+  right: 0;
+  z-index: -1;
+}
+
+.ap-content-content .ap-content-watermark-large {
+  position: relative;
+  width: 100%;
+}
+
+.ap-content-content .ap-content-watermark-large img {
+  position: absolute;
+  opacity: 0.5;
+  /* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
+  filter: alpha(opacity=50);
+  /* for <= IE 8 */
+  width: 850px;
+  height: 850px;
+  top: -10px;
+  left: -10px;
+  right: 0;
+  z-index: -1;
+}
+
+.ap-content-content .ap-content-title {
+  margin: 0%;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.ap-content-content .ap-content-salutation {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 50px;
+  margin-bottom: 5px;
+}
+
+.ap-content-content .ap-content-body p {
+  font-size: 20px;
+  text-indent: 50px;
+  text-align: justify;
+  margin-top: 12px;
+}
+
+.ap-content-content .ap-content-body h1 {
+  font-size: 42px;
+  font-weight: 500;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.ap-content-content .ap-content-body h2 {
+  font-size: 34px;
+  font-weight: 500;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.ap-content-content .ap-content-body h3 {
+  font-size: 28.72px;
+  font-weight: 500;
+  margin-top: 12px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.ap-content-content .ap-content-body h4 {
+  font-size: 26px;
+  font-weight: 500;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.ap-content-content .ap-content-body h5 {
+  font-size: 22px;
+  font-weight: 500;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.ap-content-content .ap-content-body h6 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.ap-content-content .ap-content-details {
+  margin-top: 5px;
+}
+
+.ap-content-content .ap-content-details p {
+  margin-top: 5px;
+  font-size: 24px;
+  text-indent: 50px;
+  font-weight: bold;
+}
+
+.ap-content-content .ap-content-vehicle {
+  margin-top: 20px;
+}
+
+.ap-content-content .ap-content-vehicle .ap-vehicle-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 1px;
+  background-color: white;
+}
+
+.ap-content-content .ap-content-vehicle .ap-vehicle-table tr {
+  border-top: 1px solid black;
+}
+
+.ap-content-content .ap-content-vehicle .ap-vehicle-table th {
+  text-align: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.ap-content-content .ap-content-vehicle .ap-vehicle-table td {
+  text-align: left;
+  vertical-align: middle;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 1px;
+  padding-right: 1px;
+  word-wrap: break-word;
+}
+
+.ap-content-content .ap-content-details-photo {
+  margin-top: 40px;
+}
+
+.ap-content-content .ap-content-details-photo .ap-content-photo {
+  text-align: center;
+}
+
+.ap-content-content .ap-content-details-photo .ap-content-photo img {
+  width: 100px;
+  height: 100px;
+  border: 2px solid black;
+}
+
+.ap-content-content .ap-content-details-photo .ap-content-thumbmark-container {
+  text-align: center;
+}
+
+.ap-content-content .ap-content-details-photo .ap-content-thumbmark-container small {
+  margin-left: 10px;
+}
+
+.ap-content-content .ap-content-details-photo .ap-content-thumbmark-container .ap-content-thumbmark {
+  width: 50px;
+  height: 60px;
+  padding: 50px;
+  background-color: #ececec;
+  border: 2px solid black;
+}
+
+.ap-content-content .ap-content-details-photo .ap-content-without-thumbmark-container {
+  margin-top: -20px;
+}
+
+.ap-content-content .ap-content-details-photo .ap-content-without-thumbmark-container .ap-content-thumbmark {
+  width: 50px;
+  height: 60px;
+  padding: 50px;
+  background-color: #ececec;
+  border: 2px solid black;
+}
+
+.ap-content-content .ap-content-details-photo .ap-content-applicant-signature {
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top: 1px solid black;
+  margin-top: 50px;
+}
+
+.ap-content-content .ap-content-details-signature {
+  margin-top: 40px;
+}
+
+.ap-content-content .ap-content-details-signature .ap-content-table {
+  width: 100%;
+  border-spacing: 0px;
+}
+
+.ap-content-content .ap-content-details-signature .ap-content-table td {
+  vertical-align: middle;
+  padding: 0%;
+}
+
+.ap-content-content .ap-content-details-signature .ap-label {
+  font-size: 12px;
+}
+
+.ap-content-content .ap-content-details-signature .ap-text {
+  text-align: right;
+}
+
+.ap-content-content .ap-content-details-signature .ap-text small {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.ap-content-content .ap-content-details-signature .ap-content-approval-with-signature {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.ap-content-content .ap-content-details-signature .ap-content-approval-with-signature img {
+  width: 200px;
+  height: 80px;
+  margin-top: -10px;
+}
+
+.ap-content-content .ap-content-details-signature .ap-content-approval-with-signature p {
+  margin-top: -10px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+.ap-content-content .ap-content-details-signature .ap-content-approval-without-signature {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.ap-content-content .ap-content-details-signature .ap-content-approval-without-signature p {
+  margin-top: 55px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+.ap-content-content .ap-content-document {
+  margin-top: 40px;
+}
+
+.ap-content-content .ap-content-document .ap-content-table {
+  width: 100%;
+  border-spacing: 0px;
+}
+
+.ap-content-content .ap-content-document .ap-content-table td {
+  vertical-align: middle;
+  padding: 0%;
+}
+
+.ap-content-content .ap-content-document .ap-label {
+  font-size: 12px;
+}
+
+.ap-content-content .ap-content-document .ap-text {
+  text-align: right;
+}
+
+.ap-content-content .ap-content-document .ap-text small {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.ap-content-content .ap-content-document .ap-content-approval {
+  text-align: center;
+  border-top: 1px solid black;
+  margin-top: 50px;
+}
+
+.ap-content-content .ap-content-document p {
+  margin: 0%;
+  font-weight: bold;
+}
+
+.ap-content-content .ap-content-document .ap-seal {
+  text-align: center;
+}
+
+.ap-content-content .ap-content-document .ap-seal small {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.ap-content-content .ap-content-tagline {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.ap-content-content .ap-content-tagline p {
+  font-size: 22px;
+  font-style: italic;
+  text-align: center;
+}
+
+.ap-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.ql-align-justify {
+  text-align: justify !important;
+}
+
+.ql-align-center {
+  text-align: center !important;
+}
+
+.ql-align-right {
+  text-align: right !important;
+}
+
+.ql-indent-1 {
+  padding-left: 3em !important;
+}
+
+.ql-indent-2 {
+  padding-left: 6em !important;
+}
+
+.ql-indent-3 {
+  padding-left: 9em !important;
+}
+
+.ql-indent-4 {
+  padding-left: 12em !important;
+}
+
+.ql-indent-5 {
+  padding-left: 15em !important;
+}
+
+.ql-indent-6 {
+  padding-left: 18em !important;
+}
+
+.ql-indent-7 {
+  padding-left: 21em !important;
+}
+
+.ql-indent-8 {
+  padding-left: 24em !important;
+}
+
+.ql-indent-9 {
+  padding-left: 27em !important;
+}
+

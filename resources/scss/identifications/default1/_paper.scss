@@ -1,0 +1,98 @@
+// Name:            Paper
+// Description:     Components to create paper size
+//
+// Component:       `ap-paper`
+//
+// Sub-objects:     `ap-paper-header`
+//                  `ap-paper-body`
+//                  `ap-paper-footer`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+// $paper-width:                               8.5in !default;
+// $paper-margin-vertical:                     89.41px !default;
+// $paper-margin-horizontal:                   56.03px !default;
+
+// /* ==================================================
+//     Component: Paper
+//    ================================================== */
+
+// .ap-paper{
+//     font-family: serif;
+//     position: relative;
+//     box-sizing: border-box;
+//     padding: $paper-margin-vertical $paper-margin-horizontal;
+// }
+
+// .ap-paper-preview{
+//     width: $paper-width;
+//     margin: 10px auto;
+//     border: 1px solid #E5E5E5;
+// }
+
+// .ap-paper-footer{
+//     margin-top: 40px;
+//     text-align: center;
+// }
+
+// .ap-new-paper{
+//     page-break-before: always;
+// }
+
+// .ap-identification {
+//     width: 400px;
+//     height: 250px;
+//     padding-top: 2px;
+//     padding-bottom: 2px;
+//     padding-left: 10px;
+//     padding-right: 10px;
+
+//     // margin: auto;
+//     // margin-top: 20px;
+//     // margin-left: 20px;
+//     border: 1px solid black;
+//     border-radius: 10px;
+// }
+
+// Variables
+$card-width: 3.375in !default;   // PVC card width
+$card-height: 2.125in !default;  // PVC card height
+
+// Paper styling
+.ap-paper {
+    font-family: serif;
+    position: relative;
+    box-sizing: border-box;
+    padding: 0.1in; // Adjust padding for ID card printing
+}
+
+.ap-paper-preview {
+    width: $card-width;
+    height: $card-height;
+    margin: 10px auto;
+    border: 1px solid #E5E5E5;
+}
+
+// Identification section
+.ap-identification {
+    width: $card-width;
+    height: $card-height;
+    padding: 0.2in;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;  // Adjust the font size based on your design
+}
+
+.ap-identification .id-number {
+    font-size: 18px;  // Larger font for the ID number
+    font-weight: bold;
+}
+
+.ap-paper-footer {
+    margin-top: 20px;
+    text-align: center;
+}

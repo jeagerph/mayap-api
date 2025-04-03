@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'ArialRegular';
+    src: url('../fonts/Arial/Arial-Regular.ttf')
+}
+
+@font-face {
+    font-family: 'ArialItalic';
+    src: url('../fonts/Arial/Arial-Italic.ttf')
+}
+
+@font-face {
+    font-family: 'ArialBold';
+    src: url('../fonts/Arial/Arial-Bold.ttf')
+}
+
+@font-face {
+    font-family: 'ArialBoldItalic';
+    src: url('../fonts/Arial/Arial-BoldItalic.ttf')
+}
+// Helpers - Set of variables and global functions
+@import './helpers/variables';
+@import './helpers/functions';
+@import './helpers/mixins';
+
+
+
+// Base - Holds all utilities and basic stylings
+@import './base/flex';
+@import './base/margin';
+@import './base/padding';
+@import './base/position';
+// @import './base/reboot';
+@import './base/utility';
+
+
+
+// Components - Advanced multi-part components with lots of possiblities
+@import './components/identification/household/paper';
+@import './components/identification/household/content';

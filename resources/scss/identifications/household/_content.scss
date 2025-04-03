@@ -1,0 +1,357 @@
+.ap-front {
+
+    .ap-header {
+        margin-top: 5px;
+        margin-bottom: 0;
+    
+        .ap-header-table {
+            width: 100%;
+            margin: 0 auto;
+    
+            .ap-header-table td{
+                vertical-align: middle;
+            }
+            
+            .ap-header-table-text{
+                text-align: center;
+            }
+            
+            .ap-header-logo {
+                text-align: center;
+                // border: 1px solid black;
+            }
+            
+            .ap-header-republic{
+                font-family: 'ArialBold';
+                font-size: 9px;
+                line-height: 4px;
+                letter-spacing: 2px;
+                font-weight: bold;
+            }
+            
+            .ap-header-city{
+                font-family: 'ArialBold';
+                font-size: 9px;
+                line-height: 4px;
+                letter-spacing: 2px;
+                font-weight: bold;
+            }
+            
+            .ap-header-barangay {
+                font-family: 'ArialBold';
+                font-size: 9px;
+                font-weight: bold;
+                line-height: 4px;
+                letter-spacing: 2px;
+            }
+        }
+    
+        .ap-header-title {
+            width: 100%;
+            height: 20px;
+            background: #228CDB;
+            padding-top: 5px;
+    
+            p {
+                font-family: 'ArialBold';
+                margin: 0;
+                text-align: center;
+                font-size: 14px;
+                color: white;
+                font-weight: bold;
+                letter-spacing: 2px;
+            }
+        }
+    }
+
+    .ap-content {
+        margin-top: 5px;
+
+        .ap-watermark {
+            position: relative;
+            width: 100%;
+    
+            img {
+                position: absolute;
+                opacity: 0.25; /* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
+                filter:alpha(opacity=25); /* for <= IE 8 */
+                width: 300px;
+                height: 300px;
+                top: 100px;
+                left: 70px;
+                right: 0;
+                z-index: -1;
+            }
+        }
+
+        .ap-content-table {
+            width: 100%;
+            border-spacing: 0px;
+    
+            td {
+                vertical-align: top;
+                padding: 5px 5px;
+            }
+        }
+
+        .ap-content-photo {
+            margin-top: 5px;
+            text-align: center;
+            
+            img {
+                width: 100px;
+                height: 100px;
+                border: .50px solid #999999;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+        }
+
+        .ap-content-signature {
+            text-align: center;
+
+            .ap-line {
+                margin-top: 30px;
+                width: 100%;
+                border-top: 1px solid black;
+            }
+
+            small {
+                font-family: 'ArialBold';
+                font-size: 8px;
+            }
+        }
+
+        .ap-content-details 
+        {
+            padding-left: 5px;
+            padding-right: 5px;
+
+            .ap-name {
+                small {
+                    font-family: 'ArialItalic';
+                    font-size: 8px;
+                    font-style: italic;
+                }
+    
+                p {
+                    font-family: 'ArialBold';
+                    margin: 0;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+            }
+    
+            .ap-other {
+                margin-top: 1px;
+    
+                table {
+                    width: 100%;
+                    border-spacing: 0px;
+            
+                    td {
+                        vertical-align: top;
+                        padding: 0;
+                    }
+                }
+    
+                .ap-details {
+                    small {
+                        font-family: 'ArialItalic';
+                        font-size: 8px;
+                        font-style: italic;
+                    }
+    
+                    p {
+                        font-family: 'ArialBold';
+                        margin: 0px;
+                        font-size: 11px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+
+    .ap-household {
+        
+        .ap-household-title {
+            width: 100%;
+            height: 20px;
+            background: #228CDB;
+            padding-top: 5px;
+    
+            p {
+                font-family: 'ArialBold';
+                margin: 0;
+                text-align: center;
+                font-size: 14px;
+                color: white;
+                font-weight: bold;
+                letter-spacing: 2px;
+            }
+        }
+
+        .ap-household-table {
+            padding-left: 5px;
+            padding-right: 5px;
+
+            border-collapse: collapse;
+            border-spacing: 0;
+            /* 2 */
+            width: 100%;
+            /* 3 */
+            margin-bottom: 5px;
+    
+            td {
+                vertical-align: top;
+                padding: 5px 5px;
+            }
+
+            th {
+                padding: 5px 5px;
+                text-align: left;
+                vertical-align: bottom;
+
+                font-size: 9px;
+            }
+        }
+
+        .ap-household-table td > :last-child{
+            margin-bottom: 0;
+        }
+
+        .ap-household-table-divider > tr:not(:first-child),
+        .ap-household-table-divider > :not(:first-child) > tr,
+        .ap-household-table-divider > :first-child > tr:not(:first-child){
+            border-top: 0.235px solid #E5E5E5
+        }
+
+        .ap-details {
+            font-family: 'ArialBold';
+            margin: 0px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .ap-details-small {
+            font-family: 'ArialBold';
+            margin: 0px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .ap-photo {
+            
+            img {
+                width: 35px;
+                height: 35px;
+                border: .50px solid #999999;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+        }
+    }
+
+    .ap-approval {
+        
+        position: fixed;
+        width: 450px;
+        top: 520px;
+        bottom: 0;
+        left: 42px;
+
+        .ap-tagline {
+
+            text-align: center;
+
+            .ap-text  {
+                font-family: 'ArialBoldItalic';
+                font-size: 14px;
+                font-style: italic;
+            }
+        }
+
+        .ap-with-signature {
+            text-align: center;
+    
+            img {
+                width: 90px;
+                height: 30px;
+                // margin-top: -10px;
+            }
+    
+            p {
+                font-family: 'ArialBold';
+                margin-bottom: 0%;
+                margin-top: -5px;
+                font-size: 11px;
+                font-weight: bold;
+                line-height: 0;
+            }
+    
+            small {
+                font-family: 'ArialRegular';
+                font-size: 8px;
+                font-weight: bold
+            }
+        }
+    
+        .ap-without-signature {
+            text-align: center;
+    
+            p {
+                font-family: 'ArialBold';
+                margin-bottom: 0%;
+                font-size: 11px;
+                font-weight: bold;
+                line-height: 0;
+                margin-top: 5px;
+            }
+    
+            small {
+                font-family: 'ArialRegular';
+                font-size: 8px;
+                font-weight: bold
+            }
+        }
+    }
+
+    
+
+    .ap-footer {
+        // margin-top: 5px;
+        text-align: center;
+        position: fixed;
+        width: 450px;
+
+        top: 570px;
+        bottom: 0;
+        left: 42px;
+
+        small {
+            font-family: 'ArialBold';
+            font-weight: bold;
+            font-size: 8px;
+        }
+
+        .ap-details {
+            margin-top: -8px;
+
+            small {
+                font-size: 8px;
+            }
+
+        }
+
+        .ap-details-first {
+            margin-top: -4px;
+        }
+
+        .ap-details-last {
+            font-family: 'ArialItalic';
+            margin-top: -4px;
+            font-style: italic;
+        }
+    }
+}
