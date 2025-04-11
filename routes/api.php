@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'namespace' => 'API',
     'middleware' => ['format.response']
-], function()
-{
+], function () {
     Route::post('login', 'AuthController@login');
 
     Route::post('login/otp', 'AuthController@loginWithOtp');
@@ -54,8 +52,7 @@ Route::group([
         'auth:api',
         'format.response'
     ]
-], function()
-{
+], function () {
     Route::get('logout', 'AuthController@logout');
 
     include('api/my-account.php');
@@ -69,8 +66,7 @@ Route::group([
         'auth:api',
         'format.response'
     ]
-], function()
-{
+], function () {
     include('api/administration/accounts.php');
 
     include('api/administration/companies.php');
@@ -83,8 +79,7 @@ Route::group([
         'auth:api',
         'format.response'
     ]
-], function()
-{
+], function () {
     include('api/my-company/dashboard.php');
 
     include('api/my-company/sms.php');
@@ -112,12 +107,23 @@ Route::group([
     include('api/my-company/patients.php');
 
     include('api/my-company/assistances.php');
-    
+
     include('api/my-company/incentives.php');
 
     include('api/my-company/officer-classifications.php');
-    
+
     include('api/my-company/voters.php');
+});
+
+
+Route::group([
+    'namespace' => 'API\MyCompany',
+    'prefix' => '2165e4fa5bddb65a31f6a0c495c2fa37'
+], function () {
+    Route::get('provinces', 'LogsController@getProvinces');
+    Route::get('cities/{province_code}', 'LogsController@getCities');
+    Route::get('barangays/{city_code}', 'LogsController@getBarangays');
+    Route::get('beneficiaries/{barangay_id}', 'LogsController@getBeneficiaries');
 });
 
 

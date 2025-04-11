@@ -97,18 +97,20 @@ class DashboardRepository
         $calls = $this->companyRepository->callsTotal($dates, $company);
         $verifiedVotersTotal = $this->companyRepository->verifiedVotersTotal($dates, $company);
         $crossMatchedVotersTotal = $this->companyRepository->crossMatchedVotersTotal($dates, $company);
+        $issuedSdnIds = $this->companyRepository->issuedSdnIds($dates, $company);
 
         return [
             'beneficiaries' => $beneficiaries,
-            'patients' => $patients,
-            'incentives' => $incentives,
-            'household' => $household,
-            'documents' => $documents,
-            'assistances' => $assistances,
             'officers' => $officers,
             'verifiedVoters' => $verifiedVotersTotal,
             'crossMatchedVoters' => $crossMatchedVotersTotal,
+            'issuedSdnIds' => $issuedSdnIds,
+            'incentives' => $incentives,
+            'assistances' => $assistances,
             'voterTypes' => $voterTypes,
+            'household' => $household,
+            'documents' => $documents,
+            'patients' => $patients,
             'networks' => $networks,
             'messages' => $messages,
             'calls' => $calls,
@@ -129,6 +131,20 @@ class DashboardRepository
         return $this->companyRepository->verifiedVotersTotal($dates, $company);
     }
 
+    public function viewIssuedSdnIdsTotal($request, $dates)
+    {
+        $company = Auth::user()->company();
+
+        $from = (new \Carbon\Carbon($dates['from']))->format('Y-m-d');
+        $to = (new \Carbon\Carbon($dates['to']))->format('Y-m-d');
+
+        $dates = [
+            'date' => $request->get('date')
+        ];
+
+        return $this->companyRepository->issuedSdnIds($dates, $company);
+    }
+
     public function viewSummaryOfCrossMatchedVotersTotal($request, $dates)
     {
         $company = Auth::user()->company();
@@ -142,7 +158,7 @@ class DashboardRepository
 
         return $this->companyRepository->crossMatchedVotersTotal($dates, $company);
     }
-    
+
     public function viewSummaryOfBeneficiariesTotal($request, $dates)
     {
         $company = Auth::user()->company();

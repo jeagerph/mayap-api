@@ -109,6 +109,7 @@ class Voter extends Model
             'last_name' => $this->last_name,
             'photo' => null,
             'beneficiary' => null,
+            'precint_no' => $this->precinct_no,
             'date_registered' => $this->date_registered,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at
@@ -119,7 +120,10 @@ class Voter extends Model
         // // If a beneficiary is found, add their photo
         if (!empty($beneficiary)) {
             $arr['photo'] = $beneficiary->photo ? env('CDN_URL', '') . '/storage/' . $beneficiary->photo : null;
-            $arr['beneficiary'] = $beneficiary;
+            $arr['beneficiary'] = [
+                'slug' => $beneficiary->slug,
+                'code' => $beneficiary->code,
+            ];
         }
 
 
@@ -235,7 +239,10 @@ class Voter extends Model
         // // If a beneficiary is found, add their photo
         if (!empty($beneficiary)) {
             $arr['photo'] = $beneficiary->photo ? env('CDN_URL', '') . '/storage/' . $beneficiary->photo : null;
-            $arr['beneficiary'] = $beneficiary;
+            $arr['beneficiary'] = [
+                'slug' => $beneficiary->slug,
+                'code' => $beneficiary->code,
+            ];
         }
 
         return $arr;

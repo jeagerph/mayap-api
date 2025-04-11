@@ -99,6 +99,17 @@ class DashboardController extends Controller
         return $this->repository->viewSummaryOfVerifiedVotersTotal($request, $dates);
     }
 
+    public function viewIssuedSdnIdsTotal(Request $request)
+    {
+        $request->merge([
+            'my-company-related' => true,
+        ]);
+
+        $dates = $this->queryDates($request);
+
+        return $this->repository->viewIssuedSdnIdsTotal($request, $dates);
+    }
+
     public function viewSummaryOfCrossMatchedVotersTotal(Request $request)
     {
         $request->merge([

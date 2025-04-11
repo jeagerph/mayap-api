@@ -2,41 +2,43 @@
 
 namespace App\Http\Repositories\MyCompany;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Slug;
+use App\Models\Voter;
 use App\Models\Company;
 use App\Models\Barangay;
 use App\Models\Beneficiary;
-use App\Models\BeneficiaryRelative;
-use App\Models\BeneficiaryAssistance;
-use App\Models\BeneficiaryPatient;
-use App\Models\BeneficiaryIdentification;
-use App\Models\BeneficiaryDocument;
+use Illuminate\Support\Str;
 use App\Models\BeneficiaryCall;
 use App\Models\BeneficiaryFamily;
+use App\Models\BeneficiaryPatient;
+use Illuminate\Support\Facades\DB;
+use App\Models\BeneficiaryDocument;
+use App\Models\BeneficiaryRelative;
+use App\Imports\BeneficiariesImport;
+use Illuminate\Support\Facades\Auth;
 
-use App\Http\Repositories\Base\BeneficiaryRepository as BaseRepository;
-use App\Http\Repositories\Base\SlugRepository;
+use App\Models\BeneficiaryAssistance;
+use App\Models\BeneficiaryIdentification;
 use App\Http\Repositories\Base\PDFRepository;
+use App\Http\Repositories\Base\SlugRepository;
 use App\Http\Repositories\Base\CompanyRepository;
-use App\Http\Repositories\Base\CompanyClassificationRepository;
-use App\Http\Repositories\Base\CompanyCallTransactionRepository;
-use App\Http\Repositories\Base\BeneficiaryRelativeRepository;
+use App\Http\Resources\BatchPrintSDNDataResource;
+use App\Http\Repositories\MyCompany\SmsRepository;
+use App\Http\Repositories\Base\BeneficiaryCallRepository;
+use App\Http\Repositories\Base\BeneficiaryFamilyRepository;
+use App\Http\Repositories\Base\BeneficiaryMessageRepository;
 use App\Http\Repositories\Base\BeneficiaryNetworkRepository;
+use App\Http\Repositories\Base\BeneficiaryPatientRepository;
+use App\Http\Repositories\Base\BeneficiaryDocumentRepository;
+use App\Http\Repositories\Base\BeneficiaryRelativeRepository;
 use App\Http\Repositories\Base\BeneficiaryIncentiveRepository;
 use App\Http\Repositories\Base\BeneficiaryAssistanceRepository;
-use App\Http\Repositories\Base\BeneficiaryPatientRepository;
-use App\Http\Repositories\Base\BeneficiaryMessageRepository;
-use App\Http\Repositories\Base\BeneficiaryCallRepository;
-use App\Http\Repositories\Base\BeneficiaryIdentificationRepository;
-use App\Http\Repositories\Base\BeneficiaryDocumentRepository;
-use App\Http\Repositories\Base\BeneficiaryFamilyRepository;
 
-use Illuminate\Support\Facades\DB;
-use App\Http\Repositories\MyCompany\SmsRepository;
-use App\Models\Voter;
+use App\Http\Repositories\Base\CompanyClassificationRepository;
+use App\Http\Repositories\Base\CompanyCallTransactionRepository;
+use App\Http\Repositories\Base\BeneficiaryIdentificationRepository;
+use App\Http\Repositories\Base\BeneficiaryRepository as BaseRepository;
 
 class BeneficiaryRepository
 {
@@ -519,7 +521,7 @@ class BeneficiaryRepository
 
     public function import($request)
     {
-        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\BeneficiariesImport, $request->file('file'));
+        \Maatwebsite\Excel\Facades\Excel::import(new BeneficiariesImport, $request->file('file'));
 
         return response([
             'message' => 'Data has been imported successfully.'
@@ -752,14 +754,9 @@ class BeneficiaryRepository
             $voter->update([
                 'date_of_birth' => $beneficiary->date_of_birth,
                 'gender' => $beneficiary->gender,
-            ]);
-        }
-
-
-        if ($voter) {
-            $voter->update([
-                'date_of_birth' => $beneficiary->date_of_birth,
-                'gender' => $beneficiary->gender,
+                'barangay_id' => $beneficiary->barangay_id,
+                'city_id' => $beneficiary->city_id,
+                'province_id' => $beneficiary->province_id,
             ]);
         }
 
@@ -1447,6 +1444,105 @@ class BeneficiaryRepository
         $identification = $this->baseRepository->isIdentificationRelated($beneficiary, $id);
 
         return $this->identificationRepository->download($identification);
+    }
+
+    public function batchPrint($request)
+    {
+        $company = Auth::user()->company();
+
+        $data = [
+            'approvals' => [
+                'left_approval' => [
+                    'label' => 'ATTESTED BY:',
+                    'name' => 'MR. JUAN DELA CRUZ',
+                    'position' => 'ADMIN STAFF',
+                ],
+                'right_approval' => [
+                    'label' => 'APPROVED BY:',
+                    'name' => 'HON. JUAN DELA CRUZ',
+                    'position' => 'CHAIRMAN',
+                ],
+            ],
+            'content' => [
+                'title' => 'BENEFICIARY ID',
+                'salutation' => null,
+                'body' => null,
+            ],
+            'description' => 'BENEFICIARY ID',
+            'identification_date' => '2025-04-01',
+            'left_signature' => null,
+            'right_signature' => null,
+            'name' => 'BENEFICIARY ID',
+            'options' => [
+                'with_qr_code' => 0,
+                'with_issuance_date' => 1,
+                'with_expiration_date' => 1,
+                'with_applicant_photo' => 1,
+                'with_applicant_signature' => 1,
+                'with_left_approval' => 1,
+                'with_left_approval_signature' => 0,
+                'with_right_approval' => 1,
+                'with_right_approval_signature' => 0,
+            ],
+            'expiration_date' => [
+                'default' => 'months',
+                'specific' => null,
+                'months' => '12',
+            ],
+            'view' => [
+                'index' => 'default',
+                'header' => 'default.header',
+                'front' => 'default.front',
+                'back' => 'default.back',
+            ],
+            'title_background_color' => '#228CDB',
+        ];
+
+        $beneficiaries = Beneficiary::where('barangay_id', $request->input('selectedBarangay'))
+            ->where('company_id', 4)
+            ->where('photo', '!=', null)
+            ->get();
+
+        $newIdentifications = [];
+
+        $count = 0;
+
+        $limit = (int) $request->input('numberOfIds') ?: 1;
+
+        foreach ($beneficiaries as $beneficiary) {
+            if ($count < $limit) {
+                $existingPrintedIdentifications = BeneficiaryIdentification::where('beneficiary_id', $beneficiary->id)
+                    ->where('name', 'LIKE', 'beneficiary id')
+                    ->where('is_printed', 1)
+                    ->where('company_id', $company->id)
+                    ->exists();
+
+                if (!$existingPrintedIdentifications) {
+                    $newIdentification = $beneficiary->identifications()->save(
+                        $this->identificationRepository->new(
+                            $data,
+                            $company
+                        )
+                    );
+                    $count++;
+                    $newIdentifications[] = $newIdentification;
+                }
+
+            }
+        }
+
+        // return BatchPrintSDNDataResource::collection($newIdentifications);
+        return $newIdentifications;
+    }
+
+    public function updatePrintedIdentifications($request)
+    {
+        return $this->identificationRepository->updatePrintedIdentifications($request->input('codes'));
+    }
+
+    public function downloadIdentifications($request)
+    {
+        return $this->identificationRepository->downloadIdentifications($request->input('identifications'));
     }
 
     public function destroyIdentification($request, $code, $id)

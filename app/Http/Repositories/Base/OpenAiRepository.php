@@ -22,7 +22,6 @@ class OpenAiRepository
         try {
             $response = $this->client->post(env('OPEN_AI_URL'), [
                 'json' => [
-                
                     'model' => 'gpt-4o-mini',
                     'messages' => $messages,
                     'max_tokens' => 1000,

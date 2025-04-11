@@ -1,204 +1,207 @@
 <?php
 
-    Route::get('beneficiaries', 'BeneficiaryController@index')->name('company-beneficiaries.index');
+Route::get('beneficiaries', 'BeneficiaryController@index')->name('company-beneficiaries.index');
 
-    Route::get('beneficiaries/locations/list', 'BeneficiaryController@showBeneficiariesLocationsList')->name('company-beneficiaries.index');
+Route::get('beneficiaries/locations/list', 'BeneficiaryController@showBeneficiariesLocationsList')->name('company-beneficiaries.index');
 
-    Route::get('beneficiaries/barangays/summary', 'BeneficiaryController@showBeneficiariesSummaryByBarangay')->name('company-beneficiaries.index');
+Route::get('beneficiaries/barangays/summary', 'BeneficiaryController@showBeneficiariesSummaryByBarangay')->name('company-beneficiaries.index');
 
-    Route::get('beneficiaries/voter-type/list', 'BeneficiaryController@showBeneficiariesVoterTypeList')->name('company-beneficiaries.index');
+Route::get('beneficiaries/voter-type/list', 'BeneficiaryController@showBeneficiariesVoterTypeList')->name('company-beneficiaries.index');
 
-    Route::post('beneficiaries/import', 'BeneficiaryController@import')->name('company-beneficiaries.store');
+Route::post('beneficiaries/import', 'BeneficiaryController@import')->name('company-beneficiaries.store');
 
-    Route::get('beneficiaries/download', 'BeneficiaryController@downloadReport')->name('company-beneficiaries.index');
+Route::get('beneficiaries/download', 'BeneficiaryController@downloadReport')->name('company-beneficiaries.index');
 
-    Route::get('beneficiaries/by-barangay/download', 'BeneficiaryController@downloadByBarangayReport')->name('company-beneficiaries.index');
+Route::get('beneficiaries/by-barangay/download', 'BeneficiaryController@downloadByBarangayReport')->name('company-beneficiaries.index');
 
-    Route::get('beneficiaries/by-purok/download', 'BeneficiaryController@downloadByPurokReport')->name('company-beneficiaries.index');
+Route::get('beneficiaries/by-purok/download', 'BeneficiaryController@downloadByPurokReport')->name('company-beneficiaries.index');
 
-    Route::get('beneficiaries/household/by-barangay/download', 'BeneficiaryController@downloadHouseholdByBarangayReport')->name('company-beneficiaries.index');
+Route::get('beneficiaries/household/by-barangay/download', 'BeneficiaryController@downloadHouseholdByBarangayReport')->name('company-beneficiaries.index');
 
-    Route::get('beneficiaries/household/by-purok/download', 'BeneficiaryController@downloadHouseholdByPurokReport')->name('company-beneficiaries.index');
+Route::get('beneficiaries/household/by-purok/download', 'BeneficiaryController@downloadHouseholdByPurokReport')->name('company-beneficiaries.index');
 
-    Route::get('beneficiaries/print/download', 'BeneficiaryController@downloadPrintReport')->name('company-beneficiaries.index');
+Route::get('beneficiaries/print/download', 'BeneficiaryController@downloadPrintReport')->name('company-beneficiaries.index');
+
+Route::post('beneficiaries/update-printed-identifications', 'BeneficiaryController@updatePrintedIdentifications')->name('company-beneficiaries.store');
+
+Route::group([
+    'prefix' => 'beneficiary',
+], function () {
+    Route::post('check', 'BeneficiaryController@check')->name('company-beneficiaries.store');
+
+    Route::post('', 'BeneficiaryController@store')->name('company-beneficiaries.store');
+
+    Route::get('provinces', 'BeneficiaryController@provincesOptions')->name('company-beneficiaries.index');
+
+    Route::get('cities', 'BeneficiaryController@citiesOptions')->name('company-beneficiaries.index');
+
+    Route::get('barangays', 'BeneficiaryController@barangaysOptions')->name('company-beneficiaries.index');
+
+    Route::get('classification/options', 'BeneficiaryController@classificationOptions')->name('company-beneficiaries.index');
+
+    Route::get('officer-classification/options', 'BeneficiaryController@officerClassificationOptions')->name('company-beneficiaries.index');
+
+    Route::get('questionnaire/options', 'BeneficiaryController@questionnaireOptions')->name('company-beneficiaries.index');
+
+    Route::get('report/field/options', 'BeneficiaryController@reportFieldOptions')->name('company-beneficiaries.index');
+
+    Route::get('relationship/options', 'BeneficiaryController@relationshipOptions')->name('company-beneficiaries.index');
+
+    Route::get('options', 'BeneficiaryController@beneficiaryOptions')->name('company-beneficiaries.index');
+
+    Route::get('network/options', 'BeneficiaryController@beneficiaryNetworkOptions')->name('company-beneficiaries.index');
+
+    Route::get('id-template/options', 'BeneficiaryController@idTemplateOptions')->name('company-beneficiaries.index');
+
+    Route::get('document-template/options', 'BeneficiaryController@documentTemplateOptions')->name('company-beneficiaries.index');
+
+    Route::post('option', 'BeneficiaryController@storeBeneficiaryOption')->name('company-beneficiaries.store');
+
+    Route::get('relationships', 'BeneficiaryController@relationshipsOptions')->name('company-beneficiaries.relationships');
+
+    Route::post('batch-print', 'BeneficiaryController@batchPrint')->name('company-beneficiaries.batch-print');
+
+    Route::post('identifications/download', 'BeneficiaryController@downloadIdentifications')->name('company-beneficiaries.batch-print');
 
     Route::group([
-        'prefix' => 'beneficiary',
-    ], function()
-    {
-        Route::post('check', 'BeneficiaryController@check')->name('company-beneficiaries.store');
+        'prefix' => '{code}'
+    ], function () {
+        Route::get('', 'BeneficiaryController@show')->name('company-beneficiaries.index');
 
-        Route::post('', 'BeneficiaryController@store')->name('company-beneficiaries.store');
+        Route::get('edit', 'BeneficiaryController@edit')->name('company-beneficiaries.index');
 
-        Route::get('provinces', 'BeneficiaryController@provincesOptions')->name('company-beneficiaries.index');
+        Route::put('', 'BeneficiaryController@update')->name('company-beneficiaries.update');
 
-        Route::get('cities', 'BeneficiaryController@citiesOptions')->name('company-beneficiaries.index');
-        
-        Route::get('barangays', 'BeneficiaryController@barangaysOptions')->name('company-beneficiaries.index');
+        Route::put('photo', 'BeneficiaryController@updatePhoto')->name('company-beneficiaries.update');
 
-        Route::get('classification/options', 'BeneficiaryController@classificationOptions')->name('company-beneficiaries.index');
+        Route::put('officer', 'BeneficiaryController@updateOfficer')->name('company-beneficiaries.update');
 
-        Route::get('officer-classification/options', 'BeneficiaryController@officerClassificationOptions')->name('company-beneficiaries.index');
+        Route::get('voters/check', 'BeneficiaryController@checkVoters')->name('company-beneficiaries.index');
 
-        Route::get('questionnaire/options', 'BeneficiaryController@questionnaireOptions')->name('company-beneficiaries.index');
+        Route::put('voter', 'BeneficiaryController@updateVoter')->name('company-beneficiaries.update');
 
-        Route::get('report/field/options', 'BeneficiaryController@reportFieldOptions')->name('company-beneficiaries.index');
+        Route::get('profile', 'BeneficiaryController@showProfile')->name('company-beneficiaries.index');
 
-        Route::get('relationship/options', 'BeneficiaryController@relationshipOptions')->name('company-beneficiaries.index');
+        Route::get('mobile-no', 'BeneficiaryController@showMobileNo')->name('company-beneficiaries.index');
 
-        Route::get('options', 'BeneficiaryController@beneficiaryOptions')->name('company-beneficiaries.index');
+        Route::delete('', 'BeneficiaryController@destroy')->name('company-beneficiaries.destroy');
 
-        Route::get('network/options', 'BeneficiaryController@beneficiaryNetworkOptions')->name('company-beneficiaries.index');
+        Route::get('activities', 'BeneficiaryController@showActivities')->name('company-beneficiaries.index');
 
-        Route::get('id-template/options', 'BeneficiaryController@idTemplateOptions')->name('company-beneficiaries.index');
 
-        Route::get('document-template/options', 'BeneficiaryController@documentTemplateOptions')->name('company-beneficiaries.index');
+        // RELATIVES
 
-        Route::post('option', 'BeneficiaryController@storeBeneficiaryOption')->name('company-beneficiaries.store');
+        Route::get('barangay/beneficiaries', 'BeneficiaryController@beneficiaryOptions')->name('company-beneficiaries.index');
 
-        Route::get('relationships', 'BeneficiaryController@relationshipsOptions')->name('company-beneficiaries.relationships');
+        Route::get('relatives', 'BeneficiaryController@showRelatives')->name('company-beneficiaries.index');
 
+        Route::put('relatives/arrange', 'BeneficiaryController@arrangeRelatives')->name('company-beneficiaries.index');
 
-        Route::group([
-            'prefix' => '{code}'
-        ], function()
-        {
-            Route::get('', 'BeneficiaryController@show')->name('company-beneficiaries.index');
+        Route::post('relative', 'BeneficiaryController@storeRelative')->name('company-beneficiaries.store');
 
-            Route::get('edit', 'BeneficiaryController@edit')->name('company-beneficiaries.index');
+        Route::delete('relative/{id}', 'BeneficiaryController@destroyRelative')->name('company-beneficiaries.destroy');
 
-            Route::put('', 'BeneficiaryController@update')->name('company-beneficiaries.update');
-            
-            Route::put('photo', 'BeneficiaryController@updatePhoto')->name('company-beneficiaries.update');
 
-            Route::put('officer', 'BeneficiaryController@updateOfficer')->name('company-beneficiaries.update');
+        // FAMILIES
 
-            Route::get('voters/check', 'BeneficiaryController@checkVoters')->name('company-beneficiaries.index');
+        Route::get('families', 'BeneficiaryController@showFamilies')->name('company-beneficiaries.index');
 
-            Route::put('voter', 'BeneficiaryController@updateVoter')->name('company-beneficiaries.update');
+        Route::put('families/arrange', 'BeneficiaryController@arrangeFamilies')->name('company-beneficiaries.index');
 
-            Route::get('profile', 'BeneficiaryController@showProfile')->name('company-beneficiaries.index');
+        Route::post('family', 'BeneficiaryController@storeFamily')->name('company-beneficiaries.store');
 
-            Route::get('mobile-no', 'BeneficiaryController@showMobileNo')->name('company-beneficiaries.index');
+        Route::put('family/{id}', 'BeneficiaryController@updateFamily')->name('company-beneficiaries.update');
 
-            Route::delete('', 'BeneficiaryController@destroy')->name('company-beneficiaries.destroy');
+        Route::delete('family/{id}', 'BeneficiaryController@destroyFamily')->name('company-beneficiaries.destroy');
 
-            Route::get('activities', 'BeneficiaryController@showActivities')->name('company-beneficiaries.index');
 
+        // NETWORKS
 
-            // RELATIVES
+        Route::get('network/list', 'BeneficiaryController@showNetworkByList')->name('company-beneficiaries.index');
 
-            Route::get('barangay/beneficiaries', 'BeneficiaryController@beneficiaryOptions')->name('company-beneficiaries.index');
+        Route::get('network/chart', 'BeneficiaryController@showNetworkByChart')->name('company-beneficiaries.index');
 
-            Route::get('relatives', 'BeneficiaryController@showRelatives')->name('company-beneficiaries.index');
+        Route::post('network', 'BeneficiaryController@storeNetwork')->name('company-beneficiaries.store');
 
-            Route::put('relatives/arrange', 'BeneficiaryController@arrangeRelatives')->name('company-beneficiaries.index');
+        Route::delete('network/{networkId}', 'BeneficiaryController@destroyNetwork')->name('company-beneficiaries.destroy');
 
-            Route::post('relative', 'BeneficiaryController@storeRelative')->name('company-beneficiaries.store');
+        Route::get('download/network/list', 'BeneficiaryController@downloadNetworkByList')->name('company-beneficiaries.index');
 
-            Route::delete('relative/{id}', 'BeneficiaryController@destroyRelative')->name('company-beneficiaries.destroy');
+        // INCENTIVES
 
+        Route::get('incentives', 'BeneficiaryController@showIncentives')->name('company-beneficiaries.index');
 
-            // FAMILIES
+        Route::post('incentive', 'BeneficiaryController@storeIncentive')->name('company-beneficiaries.store');
 
-            Route::get('families', 'BeneficiaryController@showFamilies')->name('company-beneficiaries.index');
+        Route::delete('incentive/{id}', 'BeneficiaryController@destroyIncentive')->name('company-beneficiaries.destroy');
 
-            Route::put('families/arrange', 'BeneficiaryController@arrangeFamilies')->name('company-beneficiaries.index');
 
-            Route::post('family', 'BeneficiaryController@storeFamily')->name('company-beneficiaries.store');
+        // ASSISTANCES
 
-            Route::put('family/{id}', 'BeneficiaryController@updateFamily')->name('company-beneficiaries.update');
+        Route::get('assistances', 'BeneficiaryController@showAssistances')->name('company-beneficiaries.index');
 
-            Route::delete('family/{id}', 'BeneficiaryController@destroyFamily')->name('company-beneficiaries.destroy');
+        Route::post('assistance', 'BeneficiaryController@storeAssistance')->name('company-beneficiaries.store');
 
+        Route::put('assistance/{assistanceId}', 'BeneficiaryController@updateAssistance')->name('company-beneficiaries.store');
 
-            // NETWORKS
+        Route::delete('assistance/{assistanceId}', 'BeneficiaryController@destroyAssistance')->name('company-beneficiaries.destroy');
 
-            Route::get('network/list', 'BeneficiaryController@showNetworkByList')->name('company-beneficiaries.index');
 
-            Route::get('network/chart', 'BeneficiaryController@showNetworkByChart')->name('company-beneficiaries.index');
+        // PATIENTS
 
-            Route::post('network', 'BeneficiaryController@storeNetwork')->name('company-beneficiaries.store');
+        Route::get('patients', 'BeneficiaryController@showPatients')->name('company-beneficiaries.index');
 
-            Route::delete('network/{networkId}', 'BeneficiaryController@destroyNetwork')->name('company-beneficiaries.destroy');
+        Route::post('patient', 'BeneficiaryController@storePatient')->name('company-beneficiaries.store');
 
-            Route::get('download/network/list', 'BeneficiaryController@downloadNetworkByList')->name('company-beneficiaries.index');
-         
-            // INCENTIVES
+        Route::put('patient/{patientId}', 'BeneficiaryController@updatePatient')->name('company-beneficiaries.update');
 
-            Route::get('incentives', 'BeneficiaryController@showIncentives')->name('company-beneficiaries.index');
+        Route::put('patient/{patientId}/approve', 'BeneficiaryController@approvePatient')->name('company-beneficiaries.update');
 
-            Route::post('incentive', 'BeneficiaryController@storeIncentive')->name('company-beneficiaries.store');
+        Route::put('patient/{patientId}/in-progress', 'BeneficiaryController@inProgressPatient')->name('company-beneficiaries.update');
 
-            Route::delete('incentive/{id}', 'BeneficiaryController@destroyIncentive')->name('company-beneficiaries.destroy');
+        Route::put('patient/{patientId}/complete', 'BeneficiaryController@completePatient')->name('company-beneficiaries.update');
 
-            
-            // ASSISTANCES
+        Route::put('patient/{patientId}/cancel', 'BeneficiaryController@cancelPatient')->name('company-beneficiaries.update');
 
-            Route::get('assistances', 'BeneficiaryController@showAssistances')->name('company-beneficiaries.index');
+        Route::delete('patient/{patientId}', 'BeneficiaryController@destroyPatient')->name('company-beneficiaries.destroy');
 
-            Route::post('assistance', 'BeneficiaryController@storeAssistance')->name('company-beneficiaries.store');
 
-            Route::put('assistance/{assistanceId}', 'BeneficiaryController@updateAssistance')->name('company-beneficiaries.store');
+        // MESSAGES
 
-            Route::delete('assistance/{assistanceId}', 'BeneficiaryController@destroyAssistance')->name('company-beneficiaries.destroy');
-            
-            
-            // PATIENTS
+        Route::get('messages', 'BeneficiaryController@showMessages')->name('company-beneficiaries.index');
 
-            Route::get('patients', 'BeneficiaryController@showPatients')->name('company-beneficiaries.index');
+        Route::post('message', 'BeneficiaryController@storeMessage')->name('company-beneficiaries.store');
 
-            Route::post('patient', 'BeneficiaryController@storePatient')->name('company-beneficiaries.store');
 
-            Route::put('patient/{patientId}', 'BeneficiaryController@updatePatient')->name('company-beneficiaries.update');
+        // CALLS
 
-            Route::put('patient/{patientId}/approve', 'BeneficiaryController@approvePatient')->name('company-beneficiaries.update');
+        Route::get('calls', 'BeneficiaryController@showCalls')->name('company-beneficiaries.index');
 
-            Route::put('patient/{patientId}/in-progress', 'BeneficiaryController@inProgressPatient')->name('company-beneficiaries.update');
+        Route::post('call', 'BeneficiaryController@storeCall')->name('company-beneficiaries.store');
 
-            Route::put('patient/{patientId}/complete', 'BeneficiaryController@completePatient')->name('company-beneficiaries.update');
+        Route::put('call/{callId}', 'BeneficiaryController@updateCall')->name('company-beneficiaries.update');
 
-            Route::put('patient/{patientId}/cancel', 'BeneficiaryController@cancelPatient')->name('company-beneficiaries.update');
 
-            Route::delete('patient/{patientId}', 'BeneficiaryController@destroyPatient')->name('company-beneficiaries.destroy');
-            
+        // IDENTIFICATIONS
 
-            // MESSAGES
+        Route::get('identifications', 'BeneficiaryController@showIdentifications')->name('company-beneficiaries.index');
 
-            Route::get('messages', 'BeneficiaryController@showMessages')->name('company-beneficiaries.index');
+        Route::post('identification', 'BeneficiaryController@storeIdentification')->name('company-beneficiaries.store');
 
-            Route::post('message', 'BeneficiaryController@storeMessage')->name('company-beneficiaries.store');
+        Route::get('identification/{identificationId}/download', 'BeneficiaryController@downloadIdentification')->name('company-beneficiaries.index');
 
+        Route::delete('identification/{identificationId}', 'BeneficiaryController@destroyIdentification')->name('company-beneficiaries.destroy');
 
-            // CALLS
+        // DOCUMENTS
 
-            Route::get('calls', 'BeneficiaryController@showCalls')->name('company-beneficiaries.index');
+        Route::get('documents', 'BeneficiaryController@showDocuments')->name('company-beneficiaries.index');
 
-            Route::post('call', 'BeneficiaryController@storeCall')->name('company-beneficiaries.store');
+        Route::post('document', 'BeneficiaryController@storeDocument')->name('company-beneficiaries.store');
 
-            Route::put('call/{callId}', 'BeneficiaryController@updateCall')->name('company-beneficiaries.update');
+        Route::get('document/{documentId}/download', 'BeneficiaryController@downloadDocument')->name('company-beneficiaries.index');
 
-
-            // IDENTIFICATIONS
-
-            Route::get('identifications', 'BeneficiaryController@showIdentifications')->name('company-beneficiaries.index');
-
-            Route::post('identification', 'BeneficiaryController@storeIdentification')->name('company-beneficiaries.store');
-
-            Route::get('identification/{identificationId}/download', 'BeneficiaryController@downloadIdentification')->name('company-beneficiaries.index');
-
-            Route::delete('identification/{identificationId}', 'BeneficiaryController@destroyIdentification')->name('company-beneficiaries.destroy');
-
-            // DOCUMENTS
-
-            Route::get('documents', 'BeneficiaryController@showDocuments')->name('company-beneficiaries.index');
-
-            Route::post('document', 'BeneficiaryController@storeDocument')->name('company-beneficiaries.store');
-
-            Route::get('document/{documentId}/download', 'BeneficiaryController@downloadDocument')->name('company-beneficiaries.index');
-
-            Route::delete('document/{documentId}', 'BeneficiaryController@destroyDocument')->name('company-beneficiaries.destroy');
-        });
+        Route::delete('document/{documentId}', 'BeneficiaryController@destroyDocument')->name('company-beneficiaries.destroy');
     });
+});
 
 ?>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories\MyCompany;
 
+use App\Imports\VotersImport;
 use App\Models\Slug;
 use App\Models\Voter;
 
@@ -140,7 +141,7 @@ class VoterRepository
 
     public function import($request)
     {
-        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\VotersImport, $request->file('file'));
+        \Maatwebsite\Excel\Facades\Excel::import(new VotersImport, $request->file('file'));
 
         return response([
             'message' => 'Data has been imported successfully.'

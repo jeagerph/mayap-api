@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Model;
-
-use App\Observers\BeneficiaryObserver as Observer;
 use Carbon\Carbon;
+
+use App\Models\Model;
+use Illuminate\Support\Facades\DB;
+use App\Observers\BeneficiaryObserver as Observer;
 
 class Beneficiary extends Model
 {
@@ -220,15 +221,15 @@ class Beneficiary extends Model
     public function issuedIds()
     {
         $issuedIds = BeneficiaryIdentification::where('beneficiary_id', $this->id)
+            ->where('is_printed', 1)
             ->where('name', 'LIKE', 'beneficiary id')
             ->count();
 
-        return $issuedIds??0;
+        return $issuedIds ?? 0;
     }
 
     public function toArray()
     {
-
         $arr = [
             'slug' => $this->slug,
             'code' => $this->code,
@@ -237,6 +238,7 @@ class Beneficiary extends Model
             'first_name' => $this->first_name,
             'middle_name' => $this->middle_name,
             'verify_voter' => $this->verify_voter,
+            'voter_details' => null,
             'issued_ids' => $this->issuedIds(),
             'last_name' => $this->last_name,
             'date_registered' => $this->date_registered,
@@ -248,6 +250,20 @@ class Beneficiary extends Model
                 ? $this->updated_at->toDateTimeString()
                 : $this->created_at->toDateTimeString()
         ];
+
+        if ($this->verify_voter != null) {
+
+            $voter_details = Voter::where('first_name', $this->first_name)
+                ->where('middle_name', $this->middle_name)
+                ->where('last_name', $this->last_name)
+                ->first();
+
+            if ($voter_details) {
+                $arr['voter_details'] = [
+                    'precinct_no' => $voter_details->precinct_no,
+                ];
+            }
+        }
 
         if (request()->has('beneficiaries-related')):
 
@@ -394,7 +410,7 @@ class Beneficiary extends Model
 
     public function toArrayBeneficiariesRelated()
     {
-        return [
+        $arr = [
             'slug' => $this->slug,
             'code' => $this->code,
             'province' => $this->province,
@@ -404,6 +420,7 @@ class Beneficiary extends Model
             'issued_ids' => $this->issuedIds(),
             'zone' => $this->zone,
             'verify_voter' => $this->verify_voter,
+            'voter_details' => null,
             'purok' => $this->purok,
             'street' => $this->street,
             'landmark' => $this->landmark,
@@ -495,6 +512,22 @@ class Beneficiary extends Model
                 ? $this->updated_at->toDateTimeString()
                 : $this->created_at->toDateTimeString(),
         ];
+
+        if ($this->verify_voter != null) {
+
+            $voter_details = Voter::where('first_name', $this->first_name)
+                ->where('middle_name', $this->middle_name)
+                ->where('last_name', $this->last_name)
+                ->first();
+
+            if ($voter_details) {
+                $arr['voter_details'] = [
+                    'precinct_no' => $voter_details->precinct_no,
+                ];
+            }
+        }
+
+        return $arr;
     }
 
     public function toArrayBeneficiaryCheckingRelated()
@@ -764,4 +797,101 @@ class Beneficiary extends Model
 
         ];
     }
+
+
+
+public function filtered($query,$request)
+{
+    $company = auth()->user()->company();
+
+    return $query->where('company_id', $company->id)
+        ->where(function ($q) use ($request) {
+            if ($request->filled('firstName')) {
+                $q->where('first_name', 'LIKE', '%' . $request->get('firstName') . '%');
+            }
+
+            if ($request->filled('middleName')) {
+                $q->where('middle_name', 'LIKE', '%' . $request->get('middleName') . '%');
+            }
+
+            if ($request->filled('lastName')) {
+                $q->where('last_name', 'LIKE', '%' . $request->get('lastName') . '%');
+            }
+
+            if ($request->filled('relativeName')) {
+                $q->whereHas('families', function ($q) use ($request) {
+                    $q->where('full_name', 'LIKE', '%' . $request->get('relativeName') . '%');
+                });
+            }
+
+            if ($request->has('filter')) {
+                $filter = $request->get('filter');
+
+                if (isset($filter['isHousehold'])) {
+                    $q->where('is_household', $filter['isHousehold']);
+                }
+
+                if (isset($filter['isPriority'])) {
+                    $q->where('is_priority', $filter['isPriority']);
+                }
+
+                if (isset($filter['isOfficer'])) {
+                    $q->where('is_officer', $filter['isOfficer']);
+                }
+
+                if (isset($filter['voterType'])) {
+                    $q->where('voter_type', $filter['voterType']);
+                }
+
+                if (isset($filter['gender'])) {
+                    $q->where('gender', $filter['gender']);
+                }
+
+                if (isset($filter['provCode'])) {
+                    $q->where('province_id', $filter['provCode']);
+                }
+
+                if (isset($filter['cityCode'])) {
+                    $q->where('city_id', $filter['cityCode']);
+                }
+
+                if (isset($filter['barangay'])) {
+                    $q->where('barangay_id', $filter['barangay']);
+                }
+
+                if (isset($filter['isGreen']) && isset($filter['isOrange'])) {
+                    $q->where(function ($query) {
+                        $query->where('verify_voter', 2)
+                            ->orWhere('verify_voter', 1);
+                    });
+                } elseif (isset($filter['isGreen'])) {
+                    $q->where('verify_voter', 2);
+                } elseif (isset($filter['isOrange'])) {
+                    $q->where('verify_voter', 1);
+                }
+
+                if (isset($filter['age'])) {
+                    $arrAgeRange = explode(',', $filter['age']);
+                    $minDate = Carbon::today()->subYears($arrAgeRange[0])->format('Y');
+                    $maxDate = Carbon::today()->subYears($arrAgeRange[1])->format('Y');
+                    $q->whereBetween(DB::raw('YEAR(date_of_birth)'), [$maxDate, $minDate]);
+                }
+
+                if (isset($filter['hasNetwork'])) {
+                    $q->has('parentingNetworks', '>=', 1);
+                }
+            }
+        });
+
+    if ($request->has('range') && isset($request->get('range')['dateRegistered'])) {
+        $dates = explode(',', $request->get('range')['dateRegistered']);
+        $query->where(function ($q) use ($dates) {
+            $q->whereDate('date_registered', $dates[0])
+                ->orWhereDate('date_registered', $dates[1])
+                ->orWhereBetween('date_registered', [$dates[0], $dates[1]]);
+        });
+    }
+
+
+}
 }

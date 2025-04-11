@@ -2,6 +2,8 @@
 
 namespace App\Imports;
 
+use App\Models\Barangay;
+use App\Models\City;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -55,7 +57,7 @@ class VotersImport implements ToCollection, WithHeadingRow
 
             // $date_of_birth = self::getDateOfBirth($row['date_of_birth'], $row);
             $date_registered = self::getDateRegistered($row['date_registered']);
-            $gender = self::getGender($row['gender']);
+            $gender = 0;
             $house_no = $row['house_no'] ?? null;
             $province_id = '0369';
             $city_id = self::getCity($row['city'], $province_id);
@@ -134,7 +136,6 @@ class VotersImport implements ToCollection, WithHeadingRow
 
         return $gender;
     }
-
 
     private function getBarangay($barangayStr, $provinceId)
     {

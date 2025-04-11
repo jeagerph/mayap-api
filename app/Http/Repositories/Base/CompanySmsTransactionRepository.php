@@ -72,14 +72,13 @@ class CompanySmsTransactionRepository
     public function newResetPassword($data, $company)
     {   
         $smsSetting = $company->smsSetting;
-        $transactionYear = $company->smsTransaction()->whereYear('transaction_date', now()->format('Y'))->first();
 
         $chargePerSms = $data['sms_type'] == 1
-            ? ($smsSetting->regular_sms ?: .30)
-            : ($smsSetting->branding_sms ?: .50);
+            ? ($invoiceSetting->regular_sms ?: .30)
+            : ($invoiceSetting->branding_sms ?: .50);
 
         return new SmsCredit([
-            'code' => self::generateCode($data['transaction_date'], $company),
+            'code' => self::generateCode($data['transaction_date'], $barangay),
             'transaction_year_id' => $transactionYear->id,
             'amount' => 0,
             'message' => $data['message'],
@@ -112,7 +111,7 @@ class CompanySmsTransactionRepository
                 'scheduled_date' => null,
                 'scheduled_time' => null,
                 'source' => $source,
-            ], $company)
+            ], $barangay)
         );
 
         $newSmsTransaction->slug()->save(

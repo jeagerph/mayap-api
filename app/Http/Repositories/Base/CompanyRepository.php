@@ -153,6 +153,67 @@ class CompanyRepository
         endif;
     }
 
+    public function issuedSdnIds($dates, $company)
+    {
+        if (array_key_exists('date', $dates)):
+
+            $date = (new \Carbon\Carbon($dates['date']))->format('Y-m-d');
+
+            $startMonth = (new \Carbon\Carbon($dates['date']))->startOfMonth();
+            $endMonth = (new \Carbon\Carbon($dates['date']))->endOfMonth();
+
+            $startYear = (new \Carbon\Carbon($dates['date']))->startOfYear();
+            $endYear = (new \Carbon\Carbon($dates['date']))->endOfYear();
+
+            $sql = "SELECT ";
+            $sql .= "COUNT(identification.id) AS total, ";
+            $sql .= "SUM(CASE ";
+            $sql .= "WHEN DATE(identification.created_at) = '{$startYear}' OR DATE(identification.created_at) = '{$endYear}' OR DATE(identification.created_at) BETWEEN '{$startYear}' AND '{$endYear}' THEN 1 ";
+            $sql .= "END) AS year, ";
+            $sql .= "SUM(CASE ";
+            $sql .= "WHEN DATE(identification.created_at) = '{$startMonth}' OR DATE(identification.created_at) = '{$endMonth}' OR DATE(identification.created_at) BETWEEN '{$startMonth}' AND '{$endMonth}' THEN 1 ";
+            $sql .= "END) AS month, ";
+            $sql .= "SUM(CASE ";
+            $sql .= "WHEN DATE(identification.created_at) = '{$date}' THEN 1 ";
+            $sql .= "END) AS date ";
+            $sql .= "FROM beneficiary_identifications identification ";
+            $sql .= "WHERE identification.company_id = {$company->id} ";
+            $sql .= "AND identification.name LIKE '%beneficiary id%' ";
+            $sql .= "AND identification.is_printed = 1 ";
+            $sql .= "AND identification.deleted_at IS NULL ";
+
+            $data = \DB::select($sql);
+
+            return [
+                'total' => $data[0]->total ?: 0,
+                'year' => $data[0]->year ?: 0,
+                'month' => $data[0]->month ?: 0,
+                'date' => $data[0]->date ?: 0,
+            ];
+
+        else:
+
+            $from = (new \Carbon\Carbon($dates['from']))->format('Y-m-d');
+            $to = (new \Carbon\Carbon($dates['to']))->format('Y-m-d');
+
+            $sql = "SELECT ";
+            $sql .= "COUNT(identification.id) AS total ";
+            $sql .= "FROM beneficiary_identifications identification ";
+            $sql .= "WHERE identification.company_id = {$company->id} ";
+            $sql .= "AND (DATE(identification.created_at) = '{$from}' OR DATE(identification.created_at) = '{$to}' OR DATE(identification.created_at) BETWEEN '{$from}' AND '{$to}') ";
+            $sql .= "AND identification.name LIKE '%beneficiary id%' ";
+            $sql .= "AND identification.is_printed = 1 ";
+            $sql .= "AND identification.deleted_at IS NULL ";
+
+            $data = \DB::select($sql);
+
+            return [
+                'total' => $data[0]->total ?: 0,
+            ];
+
+        endif;
+    }
+
     public function verifiedVotersTotal($dates, $company)
     {
         if (array_key_exists('date', $dates)):

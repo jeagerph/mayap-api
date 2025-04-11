@@ -13,7 +13,7 @@ use App\Http\Repositories\Base\CompanyRepository;
 use Illuminate\Support\Facades\DB;
 
 class VoterRepository
-{   
+{
     private $slugRepository;
     private $companyRepository;
 
@@ -24,7 +24,7 @@ class VoterRepository
     }
 
     public function store($data, $company)
-    {   
+    {
         $model = new Voter;
 
         $model->code = self::generateCode($company);
@@ -81,52 +81,62 @@ class VoterRepository
 
     public function bulkInsert(array $dataList, $company)
     {
-   
-    
-        DB::transaction(function() use ($dataList, $company){
+        DB::transaction(function () use ($dataList, $company) {
 
             $records = [];
             $slugs = [];
             $timestamp = now();
             $createdBy = Auth::id() ?? 1;
             $lastVoter = Voter::where('company_id', $company->id)
-            ->orderBy('id', 'desc')
-            ->first();
+                ->orderBy('id', 'desc')
+                ->first();
             $nextNumber = $lastVoter ? ((int) str_replace('VOTER-' . $company->id . '-', '', $lastVoter->code) + 1) : 1;
-        
+
             foreach ($dataList as $data) {
-                $records[] = [
-                    'code' => self::bulkGenerateCode($company,$nextNumber++),
-                    'company_id' => $company->id,
-                    'date_registered' => $data['date_registered'] ?? null,
-                    'province_id' => $data['province_id'],
-                    'city_id' => $data['city_id'],
-                    'barangay_id' => $data['barangay_id'],
-                    'house_no' => $data['house_no'] ?? null,
-                    'first_name' => strtoupper($data['first_name']),
-                    'middle_name' => isset($data['middle_name']) ? strtoupper($data['middle_name']) : null,
-                    'last_name' => strtoupper($data['last_name']),
-                    'gender' => $data['gender'] ?? 1,
-                    'date_of_birth' => $data['date_of_birth'] ?? null,
-                    'precinct_no' => $data['precint_no'] ?? null,
-                    'application_no' => $data['application_no'] ?? null,
-                    'application_date' => $data['application_date'] ?? null,
-                    'application_type' => $data['application_type'] ?? null,
-                    'remarks' => $data['remarks'] ?? null,
-                    'created_by' => $createdBy,
-                    'created_at' => $timestamp,
-                    'updated_at' => $timestamp,
-                ];
+                $existingVoter = Voter::where('first_name', strtoupper($data['first_name']))
+                    ->where('middle_name', isset($data['middle_name']) ? strtoupper($data['middle_name']) : null)
+                    ->where('last_name', strtoupper($data['last_name']))
+                    ->where('company_id', $company->id)
+                    ->exists();
+
+                if (!$existingVoter) {
+                    $records[] = [
+                        'code' => self::bulkGenerateCode($company, $nextNumber++),
+                        'company_id' => $company->id,
+                        'date_registered' => $data['date_registered'] ?? null,
+                        'province_id' => $data['province_id'],
+                        'city_id' => $data['city_id'],
+                        'barangay_id' => $data['barangay_id'],
+                        'house_no' => $data['house_no'] ?? null,
+                        'first_name' => strtoupper($data['first_name']),
+                        'middle_name' => isset($data['middle_name']) ? strtoupper($data['middle_name']) : null,
+                        'last_name' => strtoupper($data['last_name']),
+                        'gender' => $data['gender'] ?? 1,
+                        'date_of_birth' => $data['date_of_birth'] ?? null,
+                        'precinct_no' => $data['precint_no'] ?? null,
+                        'application_no' => $data['application_no'] ?? null,
+                        'application_date' => $data['application_date'] ?? null,
+                        'application_type' => $data['application_type'] ?? null,
+                        'remarks' => $data['remarks'] ?? null,
+                        'created_by' => $createdBy,
+                        'created_at' => $timestamp,
+                        'updated_at' => $timestamp,
+                    ];
+                }
+            }
+
+            if (empty($records)) {
+                return null; // No new records to insert
             }
 
             Voter::insert($records);
-    
+
             // Retrieve inserted voter IDs
             $insertedVoters = Voter::latest()->limit(count($dataList))->get();
-        
+
             foreach ($insertedVoters as $voter) {
                 $slug = $this->slugRepository->new($voter->first_name . ' ' . $voter->last_name . ' Voter');
-        
+
                 // Add `slug_id` (linked voter ID) and `slug_type` (model name)
                 $slugs[] = [
                     'full' => $slug->full,
@@ -139,15 +149,15 @@ class VoterRepository
                     'updated_at' => $timestamp,
                 ];
             }
-        
-          
+
+
             Slug::insert($slugs);
             return $insertedVoters;
         });
-    
-     
+
+
     }
-    
+
 
     public function update($data)
     {
@@ -179,7 +189,7 @@ class VoterRepository
         $address .= $voter->barangay ? $voter->barangay->name . ', ' : '';
 
         // Customization of address: Determined if Olongapo City beneficiary, not include province
-        if($voter->city_id == '037107'):
+        if ($voter->city_id == '037107'):
             $address .= $voter->city_id ? $voter->city->name : '';
         else:
             $address .= $voter->city_id ? $voter->city->name . ', ' : '';
@@ -197,8 +207,8 @@ class VoterRepository
         $count = Voter::where('company_id', $company->id)->count();
 
         $code = 'VOTER-';
-        $code .= $company->id. '-';
-        $code .= leadingZeros($count+1);
+        $code .= $company->id . '-';
+        $code .= leadingZeros($count + 1);
 
         return $code;
     }
@@ -212,7 +222,7 @@ class VoterRepository
     {
         $company = Auth::user()->company();
 
-        if($voter->company_id != $company->id):
+        if ($voter->company_id != $company->id):
 
             return abort(403, 'Forbidden: Voter is not under your account.');
 
@@ -221,7 +231,7 @@ class VoterRepository
 
     public function isAllowedToDestroy($voter)
     {
-        
+
     }
 }
 ?>

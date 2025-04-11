@@ -63,8 +63,17 @@ class BeneficiaryIdentification extends Model
     {
         $arr = [
             'code' => $this->code,
+            'view' => $this->view,
+            'options' => $this->options,
+            'beneficiary_id' => $this->beneficiary_id,
+            'beneficiary' => $this->beneficiary,
+            'company_id' => $this->company_id,
+            'content' => $this->content,
+            'approvals' => $this->approvals,
             'identification_date' => $this->identification_date,
             'name' => $this->name,
+            'companyIdSetting' => $this->company->idSetting,
+            'company' => $this->company,
             'description' => $this->description,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at

@@ -82,7 +82,7 @@ class CompanyBarangayReportRepository
                 self::new($form, $company)
             );
 
-            $company->update([
+            $copmany->update([
                 'barangay_report_updated_at' => now()->format('Y-m-d H:i:s'),
                 'updated_by' => 1,
             ]);

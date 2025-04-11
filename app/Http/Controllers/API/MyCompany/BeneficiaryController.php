@@ -64,7 +64,7 @@ class BeneficiaryController extends Controller
 
     public function index(Request $request)
     {
-        $company = Auth::user()->company();
+
 
         $request->merge([
             'beneficiaries-related' => true
@@ -72,104 +72,10 @@ class BeneficiaryController extends Controller
 
         $model = new Beneficiary;
 
-        return $model->where('company_id', $company->id)
-            ->where(function ($q) use ($request) {
-                if ($request->has('firstName') && $request->get('firstName')):
-                    $q->where('first_name', 'LIKE', '%' . $request->get('firstName') . '%');
-                endif;
 
-                if ($request->has('middleName') && $request->get('middleName')):
-                    $q->where('middle_name', 'LIKE', '%' . $request->get('middleName') . '%');
-                endif;
-
-                if ($request->has('lastName') && $request->get('lastName')):
-                    $q->where('last_name', 'LIKE', '%' . $request->get('lastName') . '%');
-                endif;
-
-                // RELATIVE SEARCH
-    
-                if ($request->has('relativeName') && $request->get('relativeName')):
-                    $q->whereHas('families', function ($q) use ($request) {
-                        $q->where('full_name', 'LIKE', '%' . $request->get('relativeName') . '%');
-                    });
-                endif;
-
-                if ($request->has('filter')):
-
-                    if (isset($request->get('filter')['isHousehold'])):
-                        $q->where('is_household', $request->get('filter')['isHousehold']);
-                    endif;
-
-                    if (isset($request->get('filter')['isPriority'])):
-                        $q->where('is_priority', $request->get('filter')['isPriority']);
-                    endif;
-
-                    if (isset($request->get('filter')['isOfficer'])):
-                        $q->where('is_officer', $request->get('filter')['isOfficer']);
-                    endif;
-
-                    if (isset($request->get('filter')['voterType'])):
-                        $q->where('voter_type', $request->get('filter')['voterType']);
-                    endif;
-
-                    if (isset($request->get('filter')['gender'])):
-                        $q->where('gender', $request->get('filter')['gender']);
-                    endif;
-
-                    if (isset($request->get('filter')['provCode'])):
-                        $q->where('province_id', $request->get('filter')['provCode']);
-                    endif;
-
-                    if (isset($request->get('filter')['cityCode'])):
-                        $q->where('city_id', $request->get('filter')['cityCode']);
-                    endif;
-
-                    if (isset($request->get('filter')['barangay'])):
-                        $q->where('barangay_id', $request->get('filter')['barangay']);
-                    endif;
-
-                    if (isset($request->get('filter')['isGreen']) && isset($request->get('filter')['isOrange'])) {
-                        $q->where(function ($query) {
-                            $query->where('verify_voter', 2)
-                                ->orWhere('verify_voter', 1);
-                        });
-                    } elseif (isset($request->get('filter')['isGreen'])) {
-                        $q->where('verify_voter', 2);
-                    } elseif (isset($request->get('filter')['isOrange'])) {
-                        $q->where('verify_voter', 1);
-                    }
-
-                    if (isset($request->get('filter')['age'])):
-                        $arrAgeRange = explode(',', $request->get('filter')['age']);
-
-                        $minDate = \Carbon\Carbon::today()->subYears($arrAgeRange[0])->format('Y');
-                        $maxDate = \Carbon\Carbon::today()->subYears($arrAgeRange[1])->format('Y');
-
-                        $q->whereBetween(DB::raw('YEAR(date_of_birth)'), [$maxDate, $minDate]);
-
-                    endif;
-
-                    if (isset($request->get('filter')['hasNetwork'])):
-
-                        $q->has('parentingNetworks', '>=', 1);
-
-                    endif;
-                endif;
-            })
-            ->where(function ($q) use ($request) {
-                if ($request->has('range') && $request->get('range')['dateRegistered']):
-                    $dates = explode(',', $request->get('range')['dateRegistered']);
-
-                    $q->whereDate('date_registered', $dates[0])
-                        ->orWhereDate('date_registered', $dates[1])
-                        ->orWhereBetween('date_registered', [$dates[0], $dates[1]]);
-                endif;
-            })
-            // ->orderBy('is_priority', 'desc')
-            // ->orderBy('last_name', 'asc')
-            // ->orderBy('first_name', 'asc')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+    return $model->filtered($model,$request)
+    ->orderBy('created_at', 'desc')
+    ->paginate(10);
     }
 
     public function downloadReport(Request $request)
@@ -1150,10 +1056,33 @@ class BeneficiaryController extends Controller
         return $this->repository->storeBeneficiaryOption($formRequest);
     }
 
-    public function relationshipsOptions() 
+    public function relationshipsOptions()
     {
         $model = new BeneficiaryRelative;
 
         return $model->relationships;
+    }
+
+    public function batchPrint(Request $request)
+    {
+        $request->merge([
+            'beneficiaries-related' => true,
+        ]);
+
+        return $this->repository->batchPrint($request);
+    }
+
+    public function downloadIdentifications(Request $request)
+    {
+        $request->merge([
+            'beneficiary-identifications-related' => true,
+        ]);
+
+        return $this->repository->downloadIdentifications($request);
+    }
+
+    public function updatePrintedIdentifications(Request $request)
+    {
+        return $this->repository->updatePrintedIdentifications($request);
     }
 }

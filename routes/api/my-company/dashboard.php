@@ -16,6 +16,8 @@ Route::get('summary/verified-voters/total/view', 'DashboardController@viewSummar
 
 Route::get('summary/cross-matched-voters/total/view', 'DashboardController@viewSummaryOfCrossMatchedVotersTotal')->name('company-profile.index');
 
+Route::get('summary/issued-sdn-ids/total/view', 'DashboardController@viewIssuedSdnIdsTotal')->name('company-profile.index');
+
 Route::get('summary/officers/total/view', 'DashboardController@viewSummaryOfOfficersTotal')->name('company-profile.index');
 
 Route::get('summary/voter-types/total/view', 'DashboardController@viewSummaryOfVoterTypesTotal')->name('company-profile.index');

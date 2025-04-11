@@ -32,6 +32,7 @@ class Barangay extends Model
     public function toArray()
     {
         $arr = [
+            'id' => $this->id,
             'name' => strtoupper($this->name),
             'city_code' => $this->city_code,
             'prov_code' => $this->prov_code,

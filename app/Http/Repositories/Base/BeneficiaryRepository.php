@@ -231,32 +231,38 @@ class BeneficiaryRepository
         $createdBy = Auth::id() ?: 1;
 
         foreach ($datas as $data) {
-            $beneficiaries[] = [
-                'code' => self::bulkGenerateCode($company, $data['barangay_id']),
-                'company_id' => $company->id,
-                'date_registered' => $data['date_registered'],
-                'province_id' => $data['province_id'],
-                'city_id' => $data['city_id'],
-                'barangay_id' => $data['barangay_id'],
-                'house_no' => $data['house_no'],
-                'zone' => isset($data['zone']) ? strtoupper($data['zone']) : null,
-                'street' => isset($data['street']) ? strtoupper($data['street']) : null,
-                'purok' => isset($data['purok']) ? strtoupper($data['purok']) : null,
-                'landmark' => isset($data['landmark']) ? strtoupper($data['landmark']) : null,
-                'first_name' => strtoupper($data['first_name']),
-                'middle_name' => isset($data['middle_name']) ? strtoupper($data['middle_name']) : null,
-                'last_name' => strtoupper($data['last_name']),
-                'gender' => $data['gender'] ?? 1,
-                'mobile_no' => $data['mobile_no'] ?? null,
-                'email' => $data['email'] ?? null,
-                'latitude' => $data['latitude'] ?? null,
-                'longitude' => $data['longitude'] ?? null,
-                'created_by' => $createdBy,
-                'created_at' => $now,
-                'updated_at' => $now
-            ];
-        }
+            $existingBeneficiaries = Beneficiary::where('first_name', 'LIKE', '%' . strtoupper($data['first_name']) . '%')
+                ->where('middle_name', 'LIKE', '%' . isset($data['middle_name']) ? strtoupper($data['middle_name']) : null . '%')
+                ->where('last_name', 'LIKE', '%' . strtoupper($data['last_name']) . '%')->exists();
 
+            if (!$existingBeneficiaries) {
+                $beneficiaries[] = [
+                    'code' => self::generateCode($company, $data['barangay_id']),
+                    'company_id' => $company->id,
+                    'date_registered' => $data['date_registered'],
+                    'province_id' => $data['province_id'],
+                    'city_id' => $data['city_id'],
+                    'barangay_id' => $data['barangay_id'],
+                    'house_no' => $data['house_no'],
+                    'zone' => isset($data['zone']) ? strtoupper($data['zone']) : null,
+                    'street' => isset($data['street']) ? strtoupper($data['street']) : null,
+                    'purok' => isset($data['purok']) ? strtoupper($data['purok']) : null,
+                    'landmark' => isset($data['landmark']) ? strtoupper($data['landmark']) : null,
+                    'first_name' => strtoupper($data['first_name']),
+                    'middle_name' => isset($data['middle_name']) ? strtoupper($data['middle_name']) : null,
+                    'last_name' => strtoupper($data['last_name']),
+                    'gender' => $data['gender'] ?? 1,
+                    'mobile_no' => $data['mobile_no'] ?? null,
+                    'email' => $data['email'] ?? null,
+                    'latitude' => $data['latitude'] ?? null,
+                    'longitude' => $data['longitude'] ?? null,
+                    'created_by' => $createdBy,
+                    'created_at' => $now,
+                    'updated_at' => $now
+                ];
+            }
+
+        }
 
         if (empty($beneficiaries)) {
             return null;
@@ -461,19 +467,6 @@ class BeneficiaryRepository
     }
 
     public function generateCode($company, $barangayId)
-    {
-        $barangay = Barangay::where('id', $barangayId)->first();
-
-        $count = Beneficiary::where('barangay_id', $barangay->id)->count();
-
-        $code = 'BNF-';
-        $code .= $barangay->psgc_code . '-';
-        $code .= leadingZeros($count + 1);
-
-        return $code;
-    }
-
-    public function bulkGenerateCode($company, $barangayId)
     {
         $barangay = Barangay::where('id', $barangayId)->first();
 
